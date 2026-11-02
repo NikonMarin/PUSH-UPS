@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#EFF1EC">
+<title>3000 pompek — listopad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EFF1EC;--grid:rgba(27,42,34,.07);--ink:#1B2A22;--ink-soft:#5C6B62;
+--ink-faint:#93A096;--hit:#2F6B4F;--amber:#C9A227;--red:#B4472E;
+--rule:rgba(27,42,34,.16);--card:rgba(255,255,255,.62)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--paper);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;
+line-height:1.45;padding:20px 16px 50px;
+background-image:repeating-linear-gradient(to right,var(--grid) 0 1px,transparent 1px 23px),
+repeating-linear-gradient(to bottom,var(--grid) 0 1px,transparent 1px 23px)}
+.wrap{max-width:460px;margin:0 auto}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+h1{font-family:"Archivo",sans-serif;font-weight:800;font-size:clamp(24px,7vw,31px);line-height:1.05;letter-spacing:-.02em;margin:5px 0 22px}
+
+.big{font-family:"Archivo",sans-serif;font-weight:800;font-size:clamp(58px,18vw,80px);line-height:.9;letter-spacing:-.04em}
+.big span{font-size:20px;font-weight:500;color:var(--ink-soft);letter-spacing:0}
+.bar{height:7px;background:var(--rule);border-radius:4px;margin:16px 0 8px;overflow:hidden;position:relative}
+.bar i{display:block;height:100%;background:var(--hit);border-radius:4px;transition:width .35s}
+.bar u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);opacity:.4}
+.meta{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-faint)}
+
+.dayline{display:flex;justify-content:space-between;align-items:baseline;margin-top:26px}
+.dayline .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.dayline .v{font-family:"Archivo",sans-serif;font-weight:800;font-size:30px;letter-spacing:-.02em}
+.dayline .v b{color:var(--ink-faint);font-weight:500;font-size:17px}
+.dots{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:10px}
+.dot{height:9px;border-radius:5px;background:var(--rule)}
+.dot.on{background:var(--hit)}
+.sub{font-size:13px;color:var(--ink-soft);margin-top:9px}
+
+.add{width:100%;margin-top:20px;padding:26px;border:none;border-radius:5px;background:var(--ink);
+color:var(--paper);font-family:"Archivo",sans-serif;font-weight:800;font-size:26px;letter-spacing:-.01em;cursor:pointer}
+.add:active{transform:scale(.985)}
+.add.done{background:var(--hit)}
+.undo{width:100%;margin-top:8px;padding:11px;border:1px solid var(--rule);border-radius:5px;
+background:transparent;color:var(--ink-faint);font-family:"IBM Plex Mono",monospace;font-size:11px;
+letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+
+.debt{margin-top:18px;padding:13px;border:1.5px solid var(--rule);border-radius:5px;background:var(--card);font-size:13px}
+.debt.behind{border-color:var(--red);background:rgba(180,71,46,.09)}
+.debt.ahead{border-color:var(--hit);background:rgba(47,107,79,.09)}
+.debt b{font-weight:600}
+
+h2{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+font-weight:500;color:var(--ink-soft);margin:28px 0 11px;padding-bottom:7px;border-bottom:1px solid var(--rule)}
+.days{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.d{aspect-ratio:1;border:1.5px solid var(--rule);border-radius:4px;display:flex;flex-direction:column;
+align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;line-height:1.1}
+.d .n{font-size:9px;color:var(--ink-faint)}
+.d .c{font-size:12px;font-weight:500;margin-top:2px}
+.d.full{background:var(--hit);border-color:var(--hit);color:#fff}
+.d.full .n{color:rgba(255,255,255,.65)}
+.d.part{background:rgba(47,107,79,.16);border-color:rgba(47,107,79,.4)}
+.d.today{border-width:2.5px;border-color:var(--ink)}
+.d.fut{border-style:dashed;opacity:.45}
+
+.warn{display:none;margin-top:14px;padding:12px;border:1.5px solid var(--red);border-radius:5px;
+background:rgba(180,71,46,.1);font-size:13px}
+.warn.on{display:block}
+footer{margin-top:30px;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;
+color:var(--ink-faint);text-align:center;line-height:1.8}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow" id="eyebrow">—</p>
+  <h1>3000 pompek</h1>
+
+  <p class="big" id="total">—<span> / 3000</span></p>
+  <div class="bar"><i id="fill" style="width:0%"></i><u id="mark" style="left:0%"></u></div>
+  <div class="meta"><span id="pct">—</span><span id="left">—</span></div>
+
+  <div class="dayline">
+    <span class="k">Dziś</span>
+    <span class="v" id="todayV">—<b> / 100</b></span>
+  </div>
+  <div class="dots" id="dots"></div>
+  <p class="sub" id="todayS">—</p>
+
+  <button class="add" id="add">+ 25</button>
+  <button class="undo" id="undo">cofnij ostatnie 25</button>
+
+  <div class="debt" id="debt">—</div>
+  <div class="warn" id="warn">Zapis nie działa w tej przeglądarce — liczby znikną po zamknięciu strony.</div>
+
+  <h2>Listopad</h2>
+  <div class="days" id="days"></div>
+
+  <footer>100 dziennie przez 30 dni<br>cztery serie po 25 i dzień zrobiony</footer>
+</div>
+
+<script>
+const GOAL=3000,DAILY=100,STEP=25,DAYS=30,KEY='pompki-listopad-2026';
+const SEED={'2026-11-01':100,'2026-11-02':50};
+let data={};
+
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const today=iso(new Date());
+
+function load(){
+  let ok=true;
+  try{const raw=localStorage.getItem(KEY);data=raw?JSON.parse(raw):{};}
+  catch(e){data={};ok=false;}
+  for(const k in SEED) if(!(k in data)) data[k]=SEED[k];
+  if(!ok) document.getElementById('warn').classList.add('on');
+  save();render();
+}
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(data));}
+  catch(e){document.getElementById('warn').classList.add('on');}
+}
+function sum(){let t=0;for(const k in data)t+=data[k];return t;}
+
+function render(){
+  const t=sum(),dayNo=new Date().getDate();
+  const todayCount=data[today]||0;
+  const remaining=Math.max(0,GOAL-t);
+  const daysLeft=Math.max(1,DAYS-dayNo+1);
+
+  document.getElementById('eyebrow').textContent='Dzień '+dayNo+' z '+DAYS+' · zostało '+daysLeft+' dni';
+  document.getElementById('total').innerHTML=t+'<span> / '+GOAL+'</span>';
+  document.getElementById('fill').style.width=Math.min(100,t/GOAL*100)+'%';
+  document.getElementById('mark').style.left=Math.min(100,dayNo/DAYS*100)+'%';
+  document.getElementById('pct').textContent=Math.round(t/GOAL*100)+'%';
+  document.getElementById('left').textContent='zostało '+remaining;
+
+  document.getElementById('todayV').innerHTML=todayCount+'<b> / '+DAILY+'</b>';
+  const need=Math.max(0,DAILY-todayCount);
+  document.getElementById('todayS').textContent = need>0
+    ? 'brakuje '+need+' — '+Math.ceil(need/STEP)+' '+(Math.ceil(need/STEP)===1?'seria':'serie')
+    : 'dzień zrobiony';
+  const btn=document.getElementById('add');
+  btn.classList.toggle('done',need===0);
+  btn.textContent = need===0 ? '+ 25  (ponad plan)' : '+ 25';
+
+  const dots=document.getElementById('dots');dots.innerHTML='';
+  for(let i=0;i<4;i++){
+    const el=document.createElement('div');
+    el.className='dot'+(todayCount>=(i+1)*STEP?' on':'');
+    dots.appendChild(el);
+  }
+
+  const expected=dayNo*DAILY, diff=t-expected;
+  const box=document.getElementById('debt');
+  box.classList.remove('behind','ahead');
+  if(diff<0){
+    box.classList.add('behind');
+    box.innerHTML='<b>Zaległość: '+(-diff)+'</b> względem planu 100/dzień. Nadrobisz po '+
+      Math.ceil(-diff/daysLeft)+' dodatkowych dziennie do końca miesiąca.';
+  }else if(diff>0){
+    box.classList.add('ahead');
+    box.innerHTML='<b>+'+diff+' ponad plan.</b> Zapas, nie powód, żeby jutro odpuścić.';
+  }else{
+    box.textContent='Dokładnie w planie.';
+  }
+
+  const grid=document.getElementById('days');grid.innerHTML='';
+  for(let i=1;i<=DAYS;i++){
+    const key='2026-11-'+pad(i),c=data[key]||0;
+    const el=document.createElement('div');
+    el.className='d';
+    if(i===dayNo)el.classList.add('today');
+    if(i>dayNo)el.classList.add('fut');
+    else if(c>=DAILY)el.classList.add('full');
+    else if(c>0)el.classList.add('part');
+    el.innerHTML='<span class="n">'+i+'</span><span class="c">'+(c||'')+'</span>';
+    grid.appendChild(el);
+  }
+}
+
+document.getElementById('add').onclick=()=>{
+  data[today]=(data[today]||0)+STEP;save();render();
+};
+document.getElementById('undo').onclick=()=>{
+  if(!data[today])return;
+  data[today]=Math.max(0,data[today]-STEP);
+  if(!data[today])delete data[today];
+  save();render();
+};
+load();
+</script>
+</body>
+</html>
