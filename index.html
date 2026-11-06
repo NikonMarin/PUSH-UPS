@@ -101,7 +101,8 @@ color:var(--ink-faint);text-align:center;line-height:1.8}
 
 <script>
 const GOAL=3000,DAILY=100,STEP=25,DAYS=30,KEY='pompki-listopad-2026';
-const SEED={'2026-11-01':100,'2026-11-02':50};
+const SEED={'2026-11-01':100,'2026-11-02':100,'2026-11-03':100,'2026-11-04':100,'2026-11-05':100,'2026-11-06':50};
+const SEED_FORCE=['2026-11-01','2026-11-02','2026-11-03','2026-11-04','2026-11-05'];
 let data={};
 
 const pad=n=>String(n).padStart(2,'0');
@@ -112,7 +113,7 @@ function load(){
   let ok=true;
   try{const raw=localStorage.getItem(KEY);data=raw?JSON.parse(raw):{};}
   catch(e){data={};ok=false;}
-  for(const k in SEED) if(!(k in data)) data[k]=SEED[k];
+  for(const k in SEED) if(SEED_FORCE.includes(k)||!(k in data)) data[k]=SEED[k];
   if(!ok) document.getElementById('warn').classList.add('on');
   save();render();
 }
